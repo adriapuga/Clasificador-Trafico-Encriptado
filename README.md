@@ -94,44 +94,13 @@ El dataset contiene tráfico de red real capturado y etiquetado. Las features so
 
 ## Arquitectura del pipeline
 
-Dataset ARFF
-
-|
-
-v
-
-preprocessing.py
-
-Carga y decodificación
-Eliminación de outliers (percentil 99.9)
-Train/Test split estratificado (80/20)
-Normalización StandardScaler
-
-|
-
-v
-
-train.py
-Random Forest (100 árboles, n_jobs=-1)
-SVM (kernel RBF, C=1.0, gamma=scale)
-Cross-validation 5-fold
-
-|
-
-v
-
-evaluate.py                     features.py
-Classification report          - Feature importances
-Confusion matrix               - Ranking de features
-ROC curve + AUC                - Visualización
-
-|
-
-v
-
-predict.py
-predict_flow()   → clasificar un flujo individual
-predict_batch()  → clasificar un array de flujos
+| Paso | Módulo | Descripción |
+|---|---|---|
+| 1 | `preprocessing.py` | Carga del ARFF, eliminación de outliers (percentil 99.9), train/test split estratificado (80/20), normalización StandardScaler |
+| 2 | `train.py` | Entrenamiento de Random Forest (100 árboles) y SVM (kernel RBF), cross-validation 5-fold |
+| 3 | `evaluate.py` | Classification report, confusion matrix, curva ROC y AUC-ROC |
+| 4 | `features.py` | Extracción y visualización de importancia de features |
+| 5 | `predict.py` | Inferencia individual (`predict_flow`) y en batch (`predict_batch`) |
 
 ---
 
